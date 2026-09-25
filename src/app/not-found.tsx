@@ -14,7 +14,7 @@ export default function NotFound() {
         </h1>
 
         <p className="mt-3 text-gray-500">
-          Sorry, we couldn't find the page you're looking for
+          Sorry, we couldn&apos;t find the page you&apos;re looking for
         </p>
 
         <Link

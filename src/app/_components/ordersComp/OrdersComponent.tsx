@@ -31,7 +31,7 @@ export default function OrdersComponent() {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
         <h1 className="text-2xl font-semibold text-gray-700 dark:text-white">
-          You don't have any orders yet.
+          You don&apos;t have any orders yet.
         </h1>
       </div>
     );

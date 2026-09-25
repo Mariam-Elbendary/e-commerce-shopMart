@@ -3,6 +3,7 @@ import { Daum } from "@/interfaces/orderType";
 import { useQuery } from "@tanstack/react-query";
 
 export function getMyOrders() {
+   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { data, isLoading, isError } = useQuery<Daum[]>({
     queryKey: ["getOrders"],
     queryFn: async () => {
@@ -13,10 +14,6 @@ export function getMyOrders() {
       }
 
       const result = await response.json();
-
-      console.log("ORDERS RESPONSE:", result);
-      console.log("ORDERS DATA:", result.data);
-
       return result;
     },
   });

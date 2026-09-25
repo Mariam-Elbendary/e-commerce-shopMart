@@ -57,7 +57,7 @@ export default function AddressComponent() {
       {addresses.length === 0 ? (
         <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm">
           <p className="text-gray-500">
-            You don't have any addresses yet.
+            You don&apos;t have any addresses yet.
           </p>
         </div>
       ) : (

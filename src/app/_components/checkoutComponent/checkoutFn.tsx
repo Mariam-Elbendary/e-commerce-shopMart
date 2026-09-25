@@ -6,7 +6,8 @@ import { createCashOrder } from "@/api/actions/order";
 import { OrderFormData } from '@/schemas/orderSchema';
 import { payOnline } from "@/api/actions/payOnline";
 
-export function getMyCart() {
+export function useMyCart() {
+ 
   const { data, isLoading, isError } = useQuery<CartType>({
     queryKey: ["getCart"],
     queryFn: async () => {
@@ -23,12 +24,9 @@ export function getMyCart() {
   return { data, isLoading, isError };
 }
 
-export function getMyAddresses() {
-  const {
-    data: addressData,
-    isLoading: isLoadingAddress,
-    isError: isErrorAddress,
-  } = useQuery<AddressType>({
+export function useMyAddresses() {
+   
+  const { data: addressData,isLoading: isLoadingAddress,isError: isErrorAddress} = useQuery<AddressType>({
     queryKey: ["getAllAddresses"],
     queryFn: async () => {
       const response = await fetch("/api/addresses");

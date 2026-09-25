@@ -6,8 +6,8 @@ import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 
 import {
-  getMyAddresses,
-  getMyCart,
+  useMyAddresses,
+  useMyCart,
   useCreateCashOrder,
   usePayOnline,
 } from "./checkoutFn";
@@ -18,11 +18,11 @@ export default function CheckoutComponent() {
   const queryClient = useQueryClient();
   const [paymentMethod, setPaymentMethod] = useState("cash");
 
-  const { data, isLoading, isError } = getMyCart();
+  const { data, isLoading, isError } = useMyCart();
 
   const {
     addressData
-  } = getMyAddresses();
+  } = useMyAddresses();
 
   const [selectedAddressId, setSelectedAddressId] = useState("");
 
@@ -133,7 +133,7 @@ function handlePlaceOrder() {
 
             {addresses.length === 0 ? (
               <p className="text-gray-500 dark:text-gray-400">
-                You don't have any addresses yet.
+                You don&apos;t have any addresses yet.
               </p>
             ) : (
               <div className="space-y-4">
