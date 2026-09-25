@@ -1,10 +1,11 @@
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest , {params} :{params : {id :string}}) {
+export async function GET(req: NextRequest ,  { params }: { params: Promise<{ id: string }> }) {
   const token = await getToken({
     req: req,
   });
+const { id } = await params;
 
   if (!token) {
     return NextResponse.json(
@@ -14,7 +15,7 @@ export async function GET(req: NextRequest , {params} :{params : {id :string}}) 
   }
 
   const response = await fetch(
-    `https://ecommerce.routemisr.com/api/v2/cart/${params.id}`,
+    `https://ecommerce.routemisr.com/api/v2/cart/${id}`,
     {
       headers: {
         "Content-Type": "application/json",

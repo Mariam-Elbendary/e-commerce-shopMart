@@ -4,7 +4,7 @@ import { ChangeMyPasswordFormData, ChangePasswordFormData, VerifyCodeFormData } 
 import { LoginFormData, loginFormDataEmailOnly } from "@/schemas/loginSchema";
 import { RegisterFormData } from "@/schemas/registerSchema";
 import { cookies } from "next/headers";
-import { getServerSession } from "next-auth";
+import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/next-auth/authOptions";
 export async function userRegister(data : RegisterFormData ){ 
  try {
@@ -112,9 +112,9 @@ export async function changePass(data: {
 }
 
 export async function changeMyPassword(data: ChangeMyPasswordFormData) {
-  const session = await getServerSession(authOptions);
+const session = await getServerSession(authOptions) as {user?: { token?: string}}
 
-  const token = session?.user?.token;
+const token = session?.user?.token
 
   if (!token) {
     throw new Error("Unauthorized");
