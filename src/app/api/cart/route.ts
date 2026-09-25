@@ -5,7 +5,6 @@ export async function GET(req: NextRequest) {
   const token = await getToken({
     req: req,
   });
-console.log("CART TOKEN:", token);
   if (!token) {
     return NextResponse.json(
       { message: "unauthorized" },
