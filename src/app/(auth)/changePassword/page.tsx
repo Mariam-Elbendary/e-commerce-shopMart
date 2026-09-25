@@ -19,10 +19,10 @@ import {
 } from "@/schemas/changePasswordSchema";
 
 import { changeMyPassword } from "@/api/actions/auth.action";
+import { signOut } from "next-auth/react";
 
 export default function Page() {
-  const router = useRouter();
-
+  
   const {
     control,
     handleSubmit,
@@ -43,7 +43,7 @@ export default function Page() {
 
       if (response.success) {
         toast.success("Password changed successfully!");
-        router.push("/login");
+        await signOut({ callbackUrl: "/login" });
       } else {
         toast.error(
           response.data.message || "Failed to change password"
