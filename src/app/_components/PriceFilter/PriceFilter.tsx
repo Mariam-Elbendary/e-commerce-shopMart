@@ -34,14 +34,15 @@ export default function PriceFilter() {
           Max Price:
         </label>
 
-        <input
-          id="price"
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          placeholder="Enter price"
-          className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-700 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100"
-        />
+       <input
+  id="price"
+  type="number"
+  min="0"
+  value={price}
+  onChange={(e) => setPrice(e.target.value)}
+  placeholder="Enter max price"
+  className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-700 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100"
+/>
 
         <button
           onClick={handleFilter}

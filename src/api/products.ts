@@ -147,38 +147,68 @@ export async function getSpecificSubCategory(id:string) :Promise<Subcategory | n
 export async function getProductsForShop(
   keyword?: string,
   category?: string,
-  price?: string,
-  page?: string
+  page?: string,
 ) {
   try {
-    let url = "https://ecommerce.routemisr.com/api/v1/products?";
+    let url = "https://ecommerce.routemisr.com/api/v1/products";
 
-    if (category) url += `category=${category}&`;
-    if (price) url += `price=${price}&`;
+    if (category) url += `?&category=${category}`;
 
     const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error("api error");
     }
+
     const payload = await response.json();
 
-    if (!keyword) {
-      return payload;
-    }
-    const searchKeyword = keyword.toLowerCase();
-    const filteredProducts = payload.data.filter((product: productType) => {
-      return (
-        product.title?.toLowerCase().includes(searchKeyword) ||
-        product.brand?.name?.toLowerCase().includes(searchKeyword) ||
-        product.category?.name?.toLowerCase().includes(searchKeyword)
+    let products = [...payload.data];
+
+    const numberOfPages = payload.metadata?.numberOfPages || 1;
+
+    for (let i = 2; i <= numberOfPages; i++) {
+      const response = await fetch(
+        `https://ecommerce.routemisr.com/api/v1/products?limit=40&page=${i}${
+          category ? `&category=${category}` : ""
+        }`
       );
-    });
+
+      if (!response.ok) {
+        throw new Error("api error");
+      }
+
+      const payload = await response.json();
+
+      products = [...products, ...payload.data];
+    }
+
+    if (keyword) {
+      const searchKeyword = keyword.toLowerCase();
+
+      products = products.filter((product: productType) => {
+        return (
+          product.title?.toLowerCase().includes(searchKeyword) ||
+          product.brand?.name?.toLowerCase().includes(searchKeyword) ||
+          product.category?.name?.toLowerCase().includes(searchKeyword)
+        );
+      });
+    }
+
+    const limit = 40;
+    const currentPage = Number(page) || 1;
+    const numberOfPagesAfterFilter = Math.ceil(products.length / limit);
+    const startIndex = (currentPage - 1) * limit;
 
     return {
       ...payload,
-      results: filteredProducts.length,
-      data: filteredProducts,
+      results: products.length,
+      metadata: {
+        ...payload.metadata,
+        currentPage,
+        numberOfPages: numberOfPagesAfterFilter,
+        limit,
+      },
+      data: products.slice(startIndex, startIndex + limit),
     };
   } catch {
     throw new Error("api error");

@@ -21,12 +21,12 @@ export default function FeaturedProducts({
       <div className="grid gap-7 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {data?.map((product) => {
           return (
-            <Link
-              href={`/productDetails/${product._id}`}
-              key={product._id}
-            >
-              <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                <div className="relative h-72 overflow-hidden bg-gray-50">
+            
+              <div key={product._id} className="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                
+              <Link
+              href={`/productDetails/${product._id}`}>
+              <div className="relative h-72 overflow-hidden bg-gray-50">
                   <Image
                     src={product.imageCover}
                     alt={product.title}
@@ -52,6 +52,7 @@ export default function FeaturedProducts({
                     />
                   </div>
                 </div>
+                 </Link>
                 <div className="flex flex-1 flex-col gap-4 p-5">
                   <h2 className="line-clamp-2 min-h-14 text-lg font-bold text-gray-800 transition group-hover:text-indigo-600">
                     {product.title}
@@ -97,7 +98,7 @@ export default function FeaturedProducts({
 
                 </div>
               </div>
-            </Link>
+           
           );
         })}
       </div>

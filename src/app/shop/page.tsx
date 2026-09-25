@@ -7,7 +7,6 @@ import Slider from '../_components/swiper/Slider';
 import FeaturedProducts from '../_components/featuredProducts/FeaturedProducts';
 import { getCategories, getProductsForShop } from '@/api/products';
 import ShopFilter from '../_components/shopFilter/ShopFilter';
-import PriceFilter from '../_components/PriceFilter/PriceFilter';
 import Pagination from '../_components/pagination/Pagination';
   const ShopCategory = dynamic(() => import('../_components/shopCategory/ShopCategory'), {
     loading:()=> <div className="bg-gray-100 flex items-center justify-center"> <RiseLoader/> </div>
@@ -21,7 +20,6 @@ const categories = await getCategories();
 const response = await getProductsForShop(
   keyword,
   category,
-  price,
   page
 );
 
@@ -31,7 +29,6 @@ return (
    
       <ShopCategory />
       <ShopFilter categories={categories} />
-      <PriceFilter />
 {response.data && response.data.length > 0 ?
  ( <FeaturedProducts data={response.data} /> )
   : ( <div className="my-12 text-center">

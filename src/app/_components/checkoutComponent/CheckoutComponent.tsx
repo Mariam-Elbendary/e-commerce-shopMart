@@ -12,6 +12,7 @@ import {
   usePayOnline,
 } from "./checkoutFn";
 import Spinner from "../spinner/Spinner";
+import Link from "next/link";
 
 export default function CheckoutComponent() {
   const router = useRouter();
@@ -132,10 +133,19 @@ function handlePlaceOrder() {
             </h2>
 
             {addresses.length === 0 ? (
-              <p className="text-gray-500 dark:text-gray-400">
-                You don&apos;t have any addresses yet.
-              </p>
-            ) : (
+  <>
+    <p className="text-gray-500 dark:text-gray-400">
+      You don&apos;t have any addresses yet.
+    </p>
+
+    <Link
+  href="/address"
+  className="rounded-lg cursor-pointer px-6 py-2 text-indigo-600 transition hover:bg-indigo-700"
+>
+  Add New Address
+</Link>
+  </>
+) : (
               <div className="space-y-4">
                 {addresses.map((address) => (
                   <div

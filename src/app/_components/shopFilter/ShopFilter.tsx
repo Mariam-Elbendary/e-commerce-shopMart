@@ -1,5 +1,7 @@
 "use client";
+
 import { useRouter, useSearchParams } from "next/navigation";
+
 export default function ShopFilter({
   categories,
 }: {
@@ -20,6 +22,8 @@ export default function ShopFilter({
     } else {
       params.delete("category");
     }
+
+    params.delete("page");
 
     router.push(`/shop?${params.toString()}`);
   }
@@ -52,4 +56,3 @@ export default function ShopFilter({
     </div>
   );
 }
-
