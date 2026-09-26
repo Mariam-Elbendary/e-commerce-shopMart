@@ -140,9 +140,9 @@ function handlePlaceOrder() {
 
     <Link
   href="/address"
-  className="rounded-lg cursor-pointer py-3 text-indigo-600 transition hover:text-indigo-700"
+  className="rounded-lg cursor-pointer my-2 text-indigo-600 transition hover:text-indigo-700 hover:underline"
 >
-  Add New Address
+  Add new address?
 </Link>
   </>
 ) : (
